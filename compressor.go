@@ -9,11 +9,11 @@ import (
 func main() {
 
 	gc := src.NewGreyImageFromFile("test.pgm")
+	pred := src.FixedPrediction(*gc)
+	error := gc.Sub(*pred)
 
-	fmt.Printf("%d, %d\n", gc.GetWidth(), gc.GetHeight())
+	fmt.Printf("Dimensions %d, %d\n", gc.GetWidth(), gc.GetHeight())
 
-	fmt.Printf("%d, %d\n", gc.GetPixel(0, 0), gc.GetPixel(40, 100))
-
-	gc.Save("saved_test.pgm")
+	error.Save("prediction_error.pgm")
 
 }

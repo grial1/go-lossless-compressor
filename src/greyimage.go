@@ -1,8 +1,9 @@
-// Package greyImage has the implementation of the type GreyImage, used to parse
+// Package src has the implementation of the type GreyImage, used to parse
 // images in PGM file format.
 package src
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"reflect"
@@ -30,7 +31,17 @@ func (g *GreyImage) GetHeight() int { return g.height }
 
 /// Accessor
 func (g *GreyImage) GetPixel(row, col int) int16 {
-	return g.imageMat[row*(g.height-(g.height-g.width))+col]
+	if row < g.GetHeight() && col < g.GetWidth() {
+		return g.imageMat[row*(g.height-(g.height-g.width))+col]
+	} else {
+		msg := fmt.Sprintf("Error: Index out of bound: row: %d, col: %d", row, col)
+		panic(msg)
+	}
+}
+
+/// Mutators
+func (g *GreyImage) SetPixel(row, col int, value int16) {
+	g.imageMat[row*(g.height-(g.height-g.width))+col] = value
 }
 
 // GreyImage factory function
@@ -170,6 +181,48 @@ func NewGreyImageFromFile(filePath string) *GreyImage {
 	gc := GreyImage{width, height, dataBuffer}
 
 	return &gc
+}
+
+/// Addition method
+func (g *GreyImage) Add(q GreyImage) *GreyImage {
+
+	if g.GetHeight() != q.GetHeight() ||
+		g.GetWidth() != q.GetWidth() {
+		panic("Error: Wrong dimensions")
+	}
+
+	r := NewGreyImage(g.GetHeight(), g.GetWidth())
+	for row := 0; row < g.GetHeight(); row++ {
+		for col := 0; col < g.GetWidth(); col++ {
+
+			index := row*(g.height-(g.height-g.width)) + col
+			r.imageMat[index] = g.imageMat[index] + q.imageMat[index]
+
+		}
+	}
+	return r
+
+}
+
+/// Substraction method
+func (g *GreyImage) Sub(q GreyImage) *GreyImage {
+
+	if g.GetHeight() != q.GetHeight() ||
+		g.GetWidth() != q.GetWidth() {
+		panic("Error: Wrong dimensions")
+	}
+
+	r := NewGreyImage(g.GetHeight(), g.GetWidth())
+	for row := 0; row < g.GetHeight(); row++ {
+		for col := 0; col < g.GetWidth(); col++ {
+
+			index := row*(g.height-(g.height-g.width)) + col
+			r.imageMat[index] = g.imageMat[index] - q.imageMat[index]
+
+		}
+	}
+	return r
+
 }
 
 /// Function used to save GreyImage to a file

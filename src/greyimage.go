@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-// Grey scale image interface
+// Grey scale image object
 type GreyImage struct {
 
 	// Number of coloumns
@@ -35,6 +35,16 @@ func (g *GreyImage) GetPixel(row, col int) int16 {
 		return g.imageMat[row*(g.height-(g.height-g.width))+col]
 	} else {
 		msg := fmt.Sprintf("Error: Index out of bound: row: %d, col: %d", row, col)
+		panic(msg)
+	}
+}
+
+/// Accessor
+func (g *GreyImage) GetValueFromPixelPos(pp PixelPos) int16 {
+	if pp.Row < g.GetHeight() && pp.Col < g.GetWidth() {
+		return g.imageMat[pp.Row*(g.height-(g.height-g.width))+pp.Col]
+	} else {
+		msg := fmt.Sprintf("Error: Index out of bound: row: %d, col: %d", pp.Row, pp.Col)
 		panic(msg)
 	}
 }

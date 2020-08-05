@@ -58,6 +58,7 @@ func newContextMask(N int) *ContextMask {
 
 		}
 
+		totalFound += found
 		if totalFound == N && found == 0 {
 			findAll = true
 		}
@@ -71,6 +72,47 @@ func newContextMask(N int) *ContextMask {
 
 }
 
+/// Apply mask to determine local context of PixelPos
 func applyMask(p PixelPos, cm ContextMask, width, height int) *[]PixelPos {
-	// TODO
+
+	ret := new([]PixelPos)
+	for _, dot := range cm {
+
+		candidate := PixelPos{p.Row + dot.Row, p.Col + dot.Col}
+		if candidate.Row >= 0 &&
+			candidate.Row < height &&
+			candidate.Col >= 0 &&
+			candidate.Col < width {
+			(*ret) = append(*ret, candidate)
+		} else {
+			continue
+		}
+
+	}
+	return ret
+
+}
+
+func NewContextTable(N, width, height int) *ContextTable {
+
+	table := make(ContextTable, height*width)
+	mask := newContextMask(N)
+
+	for row := 0; row < height; row++ {
+
+		for col := 0; col < width; col++ {
+
+			if _, present := table[PixelPos{row, col}]; !present {
+
+				neighbours := applyMask(PixelPos{row, col}, *mask, width, height)
+				table[PixelPos{row, col}] = *neighbours
+
+			}
+
+		}
+
+	}
+
+	return &table
+
 }

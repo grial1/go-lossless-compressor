@@ -225,7 +225,7 @@ func NewColourImageFromFile(filePath string) *ColourImage {
 	}
 
 	f.Close()
-	fmt.Printf("%d %d %d \n", len(redDataBuffer), len(greenDataBuffer), len(blueDataBuffer))
+
 	pRed := GreyImage{width, height, redDataBuffer}
 	pGreen := GreyImage{width, height, greenDataBuffer}
 	pBlue := GreyImage{width, height, blueDataBuffer}

@@ -1,3 +1,5 @@
+// Package that calls the compression function from src and
+// provides a simple, text-based, user interface
 package main
 
 import (

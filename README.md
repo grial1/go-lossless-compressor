@@ -9,7 +9,11 @@ Implementation of a lossless compressor for bitmap (PGM&amp;PPM) images (See: ht
 1. Compression
 ```$ make run ARGS="test.pgm 5"```
 or
+```$ make run ARGS="test.ppm 16"```
+or
 ```$ ./compressor.bin test.pgm 5```
+or
+```$ ./compressor.bin test.ppm 16```
 
 2. Decompression
 ```$ bash scripts/ubuntu_compressor.bash -d test.loco```

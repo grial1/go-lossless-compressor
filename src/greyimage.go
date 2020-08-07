@@ -62,7 +62,7 @@ func NewGreyImage(height, width int) *GreyImage {
 
 }
 
-// GreyImage fectory function using an image file
+// GreyImage factory function using an image file
 func NewGreyImageFromFile(filePath string) *GreyImage {
 
 	f, err := os.Open(filePath)

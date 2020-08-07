@@ -42,6 +42,15 @@ func (c *ColourImage) GetRedPixel(row, col int) int16 {
 }
 
 /// Accessor
+func (c *ColourImage) GetRedImage() *GreyImage { return c.pRed }
+
+/// Accessor
+func (c *ColourImage) GetGreenImage() *GreyImage { return c.pGreen }
+
+/// Accessor
+func (c *ColourImage) GetBlueImage() *GreyImage { return c.pBlue }
+
+/// Accessor
 func (c *ColourImage) GetGreenPixel(row, col int) int16 {
 	if row < c.GetHeight() && col < c.GetWidth() {
 		return c.pGreen.GetPixel(row, col)
@@ -232,6 +241,52 @@ func NewColourImageFromFile(filePath string) *ColourImage {
 	cm := ColourImage{&pRed, &pGreen, &pBlue}
 
 	return &cm
+
+}
+
+/// Addition method
+func (c *ColourImage) Add(d ColourImage) *ColourImage {
+
+	if c.GetHeight() != d.GetHeight() ||
+		c.GetWidth() != d.GetWidth() {
+		panic("Error: Wrong dimensions")
+	}
+
+	r := NewColourImage(c.GetHeight(), c.GetWidth())
+	var height, width int = c.GetHeight(), c.GetWidth()
+	for row := 0; row < height; row++ {
+		for col := 0; col < width; col++ {
+
+			r.SetRedPixel(row, col, c.GetRedPixel(row, col)+d.GetRedPixel(row, col))
+			r.SetGreenPixel(row, col, c.GetGreenPixel(row, col)+d.GetGreenPixel(row, col))
+			r.SetBluePixel(row, col, c.GetBluePixel(row, col)+d.GetBluePixel(row, col))
+
+		}
+	}
+	return r
+
+}
+
+/// Substraction method
+func (c *ColourImage) Sub(d ColourImage) *ColourImage {
+
+	if c.GetHeight() != d.GetHeight() ||
+		c.GetWidth() != d.GetWidth() {
+		panic("Error: Wrong dimensions")
+	}
+
+	r := NewColourImage(c.GetHeight(), c.GetWidth())
+	var height, width int = c.GetHeight(), c.GetWidth()
+	for row := 0; row < height; row++ {
+		for col := 0; col < width; col++ {
+
+			r.SetRedPixel(row, col, c.GetRedPixel(row, col)-d.GetRedPixel(row, col))
+			r.SetGreenPixel(row, col, c.GetGreenPixel(row, col)-d.GetGreenPixel(row, col))
+			r.SetBluePixel(row, col, c.GetBluePixel(row, col)-d.GetBluePixel(row, col))
+
+		}
+	}
+	return r
 
 }
 

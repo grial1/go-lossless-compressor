@@ -7,12 +7,12 @@ import (
 	"strconv"
 )
 
-func Compress(g *GreyImage, filename, imageType string, width, height, N int /*, rgb Colour, transform bool*/) {
+func Compress(g *GreyImage, filename, imageType string, width, height, N int, rgb Colour /*, transform bool*/) {
 
 	/// Open compress file to write
 	var f *os.File
 
-	if imageType == "P5" /* || rgb == RED */ {
+	if imageType == "P5" || rgb == Red {
 
 		nf, err := os.OpenFile(filename+".loco", os.O_CREATE|os.O_RDWR, 0666)
 		if err != nil {
@@ -22,13 +22,17 @@ func Compress(g *GreyImage, filename, imageType string, width, height, N int /*,
 		f.Write([]byte(fmt.Sprintf("%s\n", imageType)))
 		f.Write([]byte(fmt.Sprintf("%d %d\n", width, height)))
 		f.Write([]byte(fmt.Sprintf("%d\n", N)))
-		/*if imageType == "P6" {
-			// TODO
-		}*/
+		if imageType == "P6" {
+			f.Write([]byte(fmt.Sprintf("A\n")))
+		}
 
-	} /* else {
-		// TODO: Append others colours to the file
-	} */
+	} else {
+		nf, err := os.OpenFile(filename+".loco", os.O_APPEND|os.O_RDWR, 0666)
+		if err != nil {
+			panic(err)
+		}
+		f = nf
+	}
 
 	/// 1. Apply MED
 	pred := FixedPrediction(*g)

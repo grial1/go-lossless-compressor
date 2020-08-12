@@ -12,3 +12,6 @@ clean:
 
 run: $(BUILD).bin
 	./$< $(ARGS)
+
+test:
+	go test -v

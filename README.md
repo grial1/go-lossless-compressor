@@ -1,8 +1,8 @@
 # go-lossless-compressor
 
-[![Build Status](http://34.67.15.139:8080/buildStatus/icon?job=go-loseless-compressor%2Fgo-loseless-compressor-build&subject=Build&color=green)](http://34.72.229.215:8080/job/go-loseless-compressor/job/go-loseless-compressor-build/)
+[![Build Status](http://35.192.18.235:8080/buildStatus/icon?job=go-loseless-compressor%2Fgo-loseless-compressor-build&subject=Build&color=green)](http://34.72.229.215:8080/job/go-loseless-compressor/job/go-loseless-compressor-build/)
 
-[![Build Status](http://34.67.15.139:8080/buildStatus/icon?job=go-loseless-compressor%2Fgo-loseless-compressor-test&subject=Test&color=blue)](http://34.72.229.215:8080/job/go-loseless-compressor/job/go-loseless-compressor-test/)
+[![Build Status](http://35.192.18.235:8080/buildStatus/icon?job=go-loseless-compressor%2Fgo-loseless-compressor-test&subject=Test&color=blue)](http://34.72.229.215:8080/job/go-loseless-compressor/job/go-loseless-compressor-test/)
 
 * Implementation of a lossless compressor for bitmap (PGM&amp;PPM) images (See: https://en.wikipedia.org/wiki/Netpbm#PPM_example)
 
